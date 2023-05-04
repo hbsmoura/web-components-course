@@ -11,32 +11,17 @@ class CardNews extends HTMLElement {
     build() {
        const componentRoot = document.createElement('div');
        componentRoot.classList = 'card';
-       
-       const cardLeft = document.createElement('div');
-       cardLeft.classList = 'card-left';
 
-       const author = document.createElement('span');
-       author.innerText = 'By ' + (this.getAttribute('author') || 'Anonymous');
-
-       const title = document.createElement('a');
-       title.innerText = this.getAttribute('title');
-       title.href = this.getAttribute('title-url') || '#';
-
-       const content = document.createElement('p');
-       content.innerText = this.getAttribute('content');
-       
-       const cardRight = document.createElement('div');
-       cardRight.classList = 'card-right';
-
-       const img = document.createElement('img');
-       img.src = this.getAttribute('img-src') || './assets/img/news.jpg';
-       img.alt = this.getAttribute('img-alt') || 'News image';
-       
-       cardLeft.append(author, title, content);
-       cardRight.appendChild(img);
-       
-       componentRoot.appendChild(cardLeft);       
-       componentRoot.appendChild(cardRight);
+       componentRoot.innerHTML = ` 
+        <div class="card-left">
+            <span>By ${(this.getAttribute('author') || 'Anonymous')}</span>
+            <a href="${this.getAttribute('title-url') || '#'}">${this.getAttribute('title')}</a>
+            <p>${this.getAttribute('content')}</p>
+        </div>
+        <div class="card-right">
+            <img src="${this.getAttribute('img-src') || './assets/img/news.jpg'}" alt="${this.getAttribute('img-alt') || 'News image'}">
+        </div>
+       `;
 
        return componentRoot;
     }
